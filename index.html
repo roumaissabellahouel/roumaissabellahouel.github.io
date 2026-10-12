@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roumaissa Bellahouel — Développeuse Web · Systèmes · Automatisation IA</title>
+  <meta name="description" content="Portfolio de Roumaissa Bellahouel — développement de sites web, systèmes de gestion sur-mesure, et automatisation IA.">
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css?v=6">
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  <!-- Typed.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.16/typed.umd.js" defer></script>
+  <!-- Lenis smooth scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <!-- TubesCursor 3D is an ES module — fetched via import() inside main.js. This just primes the cache. -->
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js">
+</head>
+<body>
+
+  <!-- Custom glowing cursor -->
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <!-- TubesCursor 3D background. Wrapped in a fixed viewport-sized div because the
+       library sizes its canvas to match its PARENT element, not the viewport. -->
+  <div class="tubes-canvas-wrap" aria-hidden="true">
+    <canvas id="canvas" class="tubes-canvas"></canvas>
+  </div>
+
+  <!-- Navbar -->
+  <header class="navbar" id="navbar">
+    <a href="#hero" class="navbar__logo">
+      <span class="navbar__monogram">RB</span>
+      <span class="navbar__wordmark">Roumaissa</span>
+    </a>
+
+    <nav class="navbar__links" aria-label="Principal">
+      <a href="#hero" class="navbar__link">Accueil</a>
+      <a href="#services" class="navbar__link">Offres</a>
+      <a href="#projects" class="navbar__link">Projets</a>
+      <a href="#about" class="navbar__link">À propos</a>
+      <a href="#contact" class="navbar__link">Contact</a>
+    </nav>
+
+    <a href="#contact" class="btn btn--pill navbar__cta">Contact</a>
+
+    <button class="navbar__burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile menu drawer -->
+  <div class="mobile-menu" id="mobile-menu">
+    <nav aria-label="Mobile">
+      <a href="#hero" class="mobile-menu__link">Accueil</a>
+      <a href="#services" class="mobile-menu__link">Offres</a>
+      <a href="#projects" class="mobile-menu__link">Projets</a>
+      <a href="#about" class="mobile-menu__link">À propos</a>
+      <a href="#contact" class="mobile-menu__link">Contact</a>
+    </nav>
+  </div>
+
+  <main>
+
+    <!-- 1. Hero -->
+    <section id="hero" class="hero">
+      <div class="orb orb-1" aria-hidden="true"></div>
+      <div class="orb orb-2" aria-hidden="true"></div>
+      <div class="orb orb-3" aria-hidden="true"></div>
+
+      <span class="badge" data-reveal>
+        <span class="badge__dot"></span>
+        DISPONIBLE POUR TRAVAILLER
+      </span>
+
+      <h1 class="hero__title">
+        <span class="hero__title-line">Salut, je suis</span>
+        <span class="hero__title-line hero__title-line--gradient">Roumaissa</span>
+        <span class="hero__title-line">Bellahouel</span>
+      </h1>
+
+      <p class="hero__typed-wrap"><span id="typed-text"></span></p>
+
+      <p class="hero__subtitle" data-reveal>
+        Je construis des sites web, des systèmes informatiques et des automatisations IA
+        qui transforment vos idées en produits concrets.
+      </p>
+
+      <div class="hero__cta-row">
+        <a href="#projects" class="btn btn--primary btn--shimmer magnetic">Voir mes projets →</a>
+        <a href="#" class="btn btn--glass magnetic" id="whatsapp-cta">💬 Contacter sur WhatsApp</a>
+      </div>
+
+      <div class="hero__stats">
+        <div class="stat-card">
+          <span class="stat-card__value" data-count="3">0</span><span class="stat-card__suffix">+</span>
+          <span class="stat-card__label">Projets</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card__value" data-count="4">0</span><span class="stat-card__suffix">+</span>
+          <span class="stat-card__label">Années</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card__value" data-count="100">0</span><span class="stat-card__suffix">%</span>
+          <span class="stat-card__label">Passion</span>
+        </div>
+      </div>
+
+      <a href="#services" class="scroll-indicator" aria-label="Défiler vers le bas">
+        <span></span>
+      </a>
+    </section>
+
+    <!-- 2. Services / Offres -->
+    <section id="services" class="services">
+      <div class="spotlight" aria-hidden="true"></div>
+
+      <span class="badge services__eyebrow" data-reveal>✦ NOS OFFRES</span>
+      <h2 class="section-title" data-reveal>Mes Offres</h2>
+      <p class="services__intro" data-reveal>
+        Sites, systèmes de gestion et automatisations IA — des outils sur-mesure pour vendre plus
+        et gérer moins de chaos.
+      </p>
+
+      <div class="services__problem" data-reveal>
+        <h3>Pourquoi travailler avec moi</h3>
+        <p>
+          Beaucoup de vendeurs gèrent encore leur activité via Instagram, Facebook et des messages
+          WhatsApp éparpillés&nbsp;: stock non à jour, commandes perdues, aucune vue claire sur les
+          ventes. Je construis des outils simples et solides qui règlent ce problème — un site qui
+          vend, et un espace d'administration qui vous fait gagner du temps chaque jour.
+        </p>
+      </div>
+
+      <div class="pricing-grid">
+
+        <!-- Offre 1 -->
+        <article class="pricing-card" data-reveal>
+          <div class="pricing-card__icon">🖥️</div>
+          <span class="pricing-card__badge">Offre 1</span>
+          <h3 class="pricing-card__title">Landing Page</h3>
+          <p class="pricing-card__tagline">Une vitrine claire pour présenter votre activité et convertir vos visiteurs en clients.</p>
+          <ul class="pricing-card__features">
+            <li>Design moderne, responsive</li>
+            <li>Présentation claire de votre offre</li>
+            <li>Commande directe (WhatsApp / téléphone)</li>
+            <li>Optimisée pour Google</li>
+          </ul>
+          <div class="pricing-card__footer">
+            <a href="#contact" class="btn btn--primary magnetic">Discutons-en →</a>
+          </div>
+        </article>
+
+        <!-- Offre 2 -->
+        <article class="pricing-card" data-reveal>
+          <div class="pricing-card__icon">🛒</div>
+          <span class="pricing-card__badge">Offre 2</span>
+          <h3 class="pricing-card__title">Boutique E-commerce</h3>
+          <p class="pricing-card__tagline">Votre boutique en ligne, avec un espace d'administration qui gère tout à votre place.</p>
+          <ul class="pricing-card__features">
+            <li>Catalogue, panier, paiement à la livraison</li>
+            <li>Gestion du stock en temps réel</li>
+            <li>Suivi des commandes et des clients</li>
+            <li>Connexion Yalidine / ZR Express</li>
+            <li>Taux de retour par client pour repérer les commandes à risque avant expédition</li>
+          </ul>
+          <div class="pricing-card__footer">
+            <a href="#contact" class="btn btn--primary magnetic">Discutons-en →</a>
+          </div>
+        </article>
+
+        <!-- Offre 3 -->
+        <article class="pricing-card" data-reveal>
+          <div class="pricing-card__icon">⚙️</div>
+          <span class="pricing-card__badge">Offre 3</span>
+          <h3 class="pricing-card__title">Système de Gestion Sur-Mesure</h3>
+          <p class="pricing-card__tagline">Un outil pensé pour votre métier&nbsp;: coach, restaurant, salon, ou tout service avec des clients à suivre.</p>
+          <ul class="pricing-card__features">
+            <li>Gestion clients, planning, réservations</li>
+            <li>Suivi des paiements et revenus</li>
+            <li>Construit autour de votre façon de travailler</li>
+            <li>Accès mobile et ordinateur</li>
+          </ul>
+          <div class="pricing-card__footer">
+            <a href="#contact" class="btn btn--primary magnetic">Discutons-en →</a>
+          </div>
+        </article>
+
+        <!-- Offre 4 -->
+        <article class="pricing-card" data-reveal>
+          <div class="pricing-card__icon">🤖</div>
+          <span class="pricing-card__badge">Offre 4</span>
+          <h3 class="pricing-card__title">Automatisation IA</h3>
+          <p class="pricing-card__tagline">Des workflows intelligents qui suppriment les tâches répétitives de votre quotidien.</p>
+          <ul class="pricing-card__features">
+            <li>Réponses et suivi client automatisés</li>
+            <li>Connexion entre vos outils (WhatsApp, Excel...)</li>
+            <li>Rapports et alertes automatiques</li>
+            <li>Gain de temps mesurable chaque semaine</li>
+          </ul>
+          <div class="pricing-card__footer">
+            <a href="#contact" class="btn btn--primary magnetic">Discutons-en →</a>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="process" data-reveal>
+        <h3 class="process__title">Comment ça se passe</h3>
+        <ol class="process__steps">
+          <li><span class="process__num">1</span><span>On discute de votre activité et de vos besoins précis <em>(gratuit, sans engagement)</em></span></li>
+          <li><span class="process__num">2</span><span>Je vous propose l'offre adaptée avec un prix et un délai clairs</span></li>
+          <li><span class="process__num">3</span><span>Acompte de 50% pour démarrer, solde à la livraison du projet</span></li>
+          <li><span class="process__num">4</span><span>Livraison, formation rapide, et accompagnement après la mise en ligne</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 3. Projects -->
+    <section id="projects" class="projects">
+      <span class="badge projects__eyebrow" data-reveal>✦ PORTFOLIO</span>
+      <h2 class="section-title" data-reveal>Des projets qui reflètent mon savoir-faire</h2>
+
+      <div class="projects__grid">
+        <article class="project-card" data-reveal data-category="ecommerce">
+          <a href="projet.html?id=laky-store" class="project-card__link" aria-label="Voir le projet Laky Accessoires">
+            <div class="project-card__media">
+              <img src="assets/projects/laky-store/cover.jpg" alt="Laky Accessoires — page d'accueil" loading="lazy">
+            </div>
+            <div class="project-card__info">
+              <span class="project-card__category">Boutique en ligne</span>
+              <div class="project-card__row">
+                <h3 class="project-card__title">Laky Accessoires</h3>
+                <span class="project-card__arrow" aria-hidden="true">↗</span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <article class="project-card" data-reveal data-category="ecommerce">
+          <a href="projet.html?id=as-accessoires" class="project-card__link" aria-label="Voir le projet As Accessoires Auto">
+            <div class="project-card__media">
+              <img src="assets/projects/as-accessoires/cover.jpg" alt="Le As Accessoires Auto — page d'accueil" loading="lazy">
+            </div>
+            <div class="project-card__info">
+              <span class="project-card__category">Boutique en ligne</span>
+              <div class="project-card__row">
+                <h3 class="project-card__title">As Accessoires Auto</h3>
+                <span class="project-card__arrow" aria-hidden="true">↗</span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <article class="project-card" data-reveal data-category="menu">
+          <a href="projet.html?id=japan-sushi" class="project-card__link" aria-label="Voir le projet Japan Sushi">
+            <div class="project-card__media">
+              <img src="assets/projects/japan-sushi/cover.jpg" alt="Japan Sushi — menu digital" loading="lazy">
+            </div>
+            <div class="project-card__info">
+              <span class="project-card__category">Menu Digital</span>
+              <div class="project-card__row">
+                <h3 class="project-card__title">Japan Sushi</h3>
+                <span class="project-card__arrow" aria-hidden="true">↗</span>
+              </div>
+            </div>
+          </a>
+        </article>
+      </div>
+
+      <div class="projects__cta" data-reveal>
+        <a href="projets.html" class="btn btn--glass magnetic">Voir tous les projets →</a>
+      </div>
+    </section>
+
+    <!-- 4. Marquee strip -->
+    <section class="marquee-strip" aria-hidden="true">
+      <div class="marquee-strip__track">
+        <span>SITES WEB&nbsp;·&nbsp;SYSTÈMES DE GESTION&nbsp;·&nbsp;AUTOMATISATION IA&nbsp;·&nbsp;ESI-SBA&nbsp;·&nbsp;ROUMAISSA BELLAHOUEL&nbsp;·&nbsp;</span>
+        <span>SITES WEB&nbsp;·&nbsp;SYSTÈMES DE GESTION&nbsp;·&nbsp;AUTOMATISATION IA&nbsp;·&nbsp;ESI-SBA&nbsp;·&nbsp;ROUMAISSA BELLAHOUEL&nbsp;·&nbsp;</span>
+      </div>
+    </section>
+
+    <!-- 5. About -->
+    <section id="about" class="about">
+      <div class="about__text">
+        <h2 class="section-title" data-reveal>À propos</h2>
+        <p class="about__reveal" id="about-reveal-text">
+          Je suis étudiante en 5ème année Systèmes Informatiques &amp; Web à l'ESI-SBA, bachelière
+          avec une moyenne de 18/20 en 2022. Au fil de mes études, j'ai réalisé 3 projets majeurs de
+          fin d'année, et aujourd'hui je me concentre sur le développement de sites web, le
+          développement de systèmes informatiques, et l'automatisation IA.
+        </p>
+      </div>
+      <div class="about__stats" data-reveal>
+        <div class="about__stat">
+          <span class="about__stat-value" data-count="3">0</span><span>+</span>
+          <p>Projets réalisés</p>
+        </div>
+        <div class="about__stat">
+          <span class="about__stat-value" data-count="4">0</span><span>+</span>
+          <p>Années d'expérience</p>
+        </div>
+        <div class="about__stat">
+          <span class="about__stat-value" data-count="100">0</span><span>%</span>
+          <p>Passion</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Contact -->
+    <section id="contact" class="contact">
+      <div class="contact__glow" aria-hidden="true"></div>
+      <h2 class="contact__title" data-reveal>Créons Quelque Chose d'Incroyable</h2>
+      <a href="#" class="btn btn--whatsapp magnetic" data-reveal id="whatsapp-cta-main">
+        💬 Écris-moi sur WhatsApp
+      </a>
+      <div class="contact__socials" data-reveal>
+        <!-- TODO: liens Instagram/LinkedIn/GitHub pas encore fournis -->
+        <a href="mailto:bellahouelroumaissa31@gmail.com" aria-label="Email" class="social-icon">✉️</a>
+        <a href="#" aria-label="Instagram" class="social-icon">📷</a>
+        <a href="#" aria-label="LinkedIn" class="social-icon">in</a>
+        <a href="#" aria-label="GitHub" class="social-icon">⌥</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> Roumaissa Bellahouel. Conçu avec soin.</p>
+  </footer>
+
+  <script type="module" src="main.js?v=6"></script>
+</body>
+</html>

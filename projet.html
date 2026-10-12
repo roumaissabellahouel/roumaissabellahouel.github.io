@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projet — Roumaissa Bellahouel</title>
+  <meta name="description" content="Détail d'un projet réalisé par Roumaissa Bellahouel — développement de sites web, systèmes de gestion sur-mesure, et automatisation IA.">
+  <meta name="robots" content="noindex">
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css?v=6">
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  <!-- Lenis smooth scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+</head>
+<body>
+
+  <!-- Custom glowing cursor -->
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <!-- Navbar -->
+  <header class="navbar" id="navbar">
+    <a href="index.html" class="navbar__logo">
+      <span class="navbar__monogram">RB</span>
+      <span class="navbar__wordmark">Roumaissa</span>
+    </a>
+
+    <nav class="navbar__links" aria-label="Principal">
+      <a href="index.html#hero" class="navbar__link">Accueil</a>
+      <a href="index.html#services" class="navbar__link">Offres</a>
+      <a href="projets.html" class="navbar__link">Projets</a>
+      <a href="index.html#about" class="navbar__link">À propos</a>
+      <a href="index.html#contact" class="navbar__link">Contact</a>
+    </nav>
+
+    <a href="index.html#contact" class="btn btn--pill navbar__cta">Contact</a>
+
+    <button class="navbar__burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile menu drawer -->
+  <div class="mobile-menu" id="mobile-menu">
+    <nav aria-label="Mobile">
+      <a href="index.html#hero" class="mobile-menu__link">Accueil</a>
+      <a href="index.html#services" class="mobile-menu__link">Offres</a>
+      <a href="projets.html" class="mobile-menu__link">Projets</a>
+      <a href="index.html#about" class="mobile-menu__link">À propos</a>
+      <a href="index.html#contact" class="mobile-menu__link">Contact</a>
+    </nav>
+  </div>
+
+  <main>
+    <section class="project-detail">
+      <a href="projets.html" class="project-detail__back" data-reveal>← Tous les projets</a>
+
+      <span class="badge project-detail__category" id="pd-category" data-reveal></span>
+      <h1 class="project-detail__title" id="pd-title" data-reveal></h1>
+      <p class="project-detail__value" id="pd-value" data-reveal></p>
+      <a href="#" id="pd-visit" target="_blank" rel="noopener" class="btn btn--primary btn--shimmer magnetic" data-reveal>Visiter le site →</a>
+
+      <div class="carousel" id="pd-carousel" data-reveal>
+        <div class="carousel__track" id="pd-track"></div>
+        <button type="button" class="carousel__btn carousel__btn--prev" id="pd-prev" aria-label="Image précédente">‹</button>
+        <button type="button" class="carousel__btn carousel__btn--next" id="pd-next" aria-label="Image suivante">›</button>
+      </div>
+      <div class="carousel__dots" id="pd-dots"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> Roumaissa Bellahouel. Conçu avec soin.</p>
+  </footer>
+
+  <script type="module" src="main.js?v=6"></script>
+</body>
+</html>
