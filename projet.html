@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projet — Roumaissa Bellahouel</title>
-  <meta name="description" content="Détail d'un projet réalisé par Roumaissa Bellahouel — développement de sites web, systèmes de gestion sur-mesure, et automatisation IA.">
+  <title data-i18n="meta.projectTitle">Projet — Roumaissa Bellahouel</title>
+  <meta name="description" data-i18n-attr="content:meta.projectDesc" content="Détail d'un projet réalisé par Roumaissa Bellahouel — stack technique, architecture et rôle.">
   <meta name="robots" content="noindex">
 
   <!-- Google Fonts: Inter -->
@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css?v=11">
 
   <!-- GSAP + ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
@@ -34,16 +34,19 @@
     </a>
 
     <nav class="navbar__links" aria-label="Principal">
-      <a href="index.html#hero" class="navbar__link">Accueil</a>
-      <a href="index.html#services" class="navbar__link">Offres</a>
-      <a href="projets.html" class="navbar__link">Projets</a>
-      <a href="index.html#about" class="navbar__link">À propos</a>
-      <a href="index.html#contact" class="navbar__link">Contact</a>
+      <a href="index.html#hero" class="navbar__link" data-i18n="nav.home">Accueil</a>
+      <a href="index.html#about" class="navbar__link" data-i18n="nav.about">À propos</a>
+      <a href="projets.html" class="navbar__link" data-i18n="nav.projects">Projets</a>
+      <a href="index.html#parcours" class="navbar__link" data-i18n="nav.parcours">Parcours</a>
+      <a href="index.html#contact" class="navbar__link" data-i18n="nav.contact">Contact</a>
     </nav>
 
-    <a href="index.html#contact" class="btn btn--pill navbar__cta">Contact</a>
+    <div class="navbar__actions">
+      <button type="button" class="lang-switch" data-lang-switch></button>
+      <a href="assets/cv/CV-Roumaissa-Bellahouel.pdf" download data-cv class="btn btn--pill navbar__cta" data-i18n="nav.cv">Mon CV ↓</a>
+    </div>
 
-    <button class="navbar__burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
+    <button class="navbar__burger" id="burger" data-i18n-attr="aria-label:nav.menu" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
       <span></span><span></span><span></span>
     </button>
   </header>
@@ -51,36 +54,69 @@
   <!-- Mobile menu drawer -->
   <div class="mobile-menu" id="mobile-menu">
     <nav aria-label="Mobile">
-      <a href="index.html#hero" class="mobile-menu__link">Accueil</a>
-      <a href="index.html#services" class="mobile-menu__link">Offres</a>
-      <a href="projets.html" class="mobile-menu__link">Projets</a>
-      <a href="index.html#about" class="mobile-menu__link">À propos</a>
-      <a href="index.html#contact" class="mobile-menu__link">Contact</a>
+      <a href="index.html#hero" class="mobile-menu__link" data-i18n="nav.home">Accueil</a>
+      <a href="index.html#about" class="mobile-menu__link" data-i18n="nav.about">À propos</a>
+      <a href="projets.html" class="mobile-menu__link" data-i18n="nav.projects">Projets</a>
+      <a href="index.html#parcours" class="mobile-menu__link" data-i18n="nav.parcours">Parcours</a>
+      <a href="index.html#contact" class="mobile-menu__link" data-i18n="nav.contact">Contact</a>
+      <a href="assets/cv/CV-Roumaissa-Bellahouel.pdf" download data-cv class="mobile-menu__link" data-i18n="nav.cv">Mon CV ↓</a>
+      <button type="button" class="lang-switch lang-switch--mobile" data-lang-switch></button>
     </nav>
   </div>
 
   <main>
     <section class="project-detail">
-      <a href="projets.html" class="project-detail__back" data-reveal>← Tous les projets</a>
+      <a href="projets.html" class="project-detail__back" data-reveal data-i18n="detail.back">← Tous les projets</a>
 
       <span class="badge project-detail__category" id="pd-category" data-reveal></span>
       <h1 class="project-detail__title" id="pd-title" data-reveal></h1>
-      <p class="project-detail__value" id="pd-value" data-reveal></p>
-      <a href="#" id="pd-visit" target="_blank" rel="noopener" class="btn btn--primary btn--shimmer magnetic" data-reveal>Visiter le site →</a>
+      <p class="project-detail__context" id="pd-context" data-reveal></p>
 
-      <div class="carousel" id="pd-carousel" data-reveal>
-        <div class="carousel__track" id="pd-track"></div>
-        <button type="button" class="carousel__btn carousel__btn--prev" id="pd-prev" aria-label="Image précédente">‹</button>
-        <button type="button" class="carousel__btn carousel__btn--next" id="pd-next" aria-label="Image suivante">›</button>
+      <div class="project-detail__links" id="pd-links" data-reveal></div>
+
+      <div class="pd-body">
+        <div class="pd-main">
+          <div class="pd-block" data-reveal>
+            <h2 class="pd-block__title" data-i18n="detail.project">Le projet</h2>
+            <p id="pd-summary"></p>
+          </div>
+          <div class="pd-block" data-reveal>
+            <h2 class="pd-block__title" data-i18n="detail.role">Mon rôle</h2>
+            <p id="pd-role"></p>
+          </div>
+          <div class="pd-block" data-reveal>
+            <h2 class="pd-block__title" data-i18n="detail.features">Points techniques</h2>
+            <ul class="pd-features" id="pd-features"></ul>
+          </div>
+        </div>
+
+        <aside class="pd-aside" data-reveal>
+          <dl class="pd-meta">
+            <div><dt data-i18n="detail.context">Contexte</dt><dd id="pd-meta-context"></dd></div>
+            <div><dt data-i18n="detail.year">Année</dt><dd id="pd-meta-year"></dd></div>
+            <div><dt data-i18n="detail.team">Équipe</dt><dd id="pd-meta-team"></dd></div>
+          </dl>
+          <h2 class="pd-block__title" data-i18n="detail.stack">Stack technique</h2>
+          <ul class="tech-pills" id="pd-stack"></ul>
+        </aside>
       </div>
-      <div class="carousel__dots" id="pd-dots"></div>
+
+      <div class="pd-gallery" id="pd-gallery">
+        <h2 class="pd-block__title" data-reveal data-i18n="detail.preview">Aperçu</h2>
+        <div class="carousel" id="pd-carousel" data-reveal>
+          <div class="carousel__track" id="pd-track"></div>
+          <button type="button" class="carousel__btn carousel__btn--prev" id="pd-prev" data-i18n-attr="aria-label:detail.prev" aria-label="Image précédente">‹</button>
+          <button type="button" class="carousel__btn carousel__btn--next" id="pd-next" data-i18n-attr="aria-label:detail.next" aria-label="Image suivante">›</button>
+        </div>
+        <div class="carousel__dots" id="pd-dots"></div>
+      </div>
     </section>
   </main>
 
   <footer class="footer">
-    <p>&copy; <span id="year"></span> Roumaissa Bellahouel. Conçu avec soin.</p>
+    <p>&copy; <span id="year"></span> Roumaissa Bellahouel · ESI Sidi Bel Abbès</p>
   </footer>
 
-  <script type="module" src="main.js?v=6"></script>
+  <script type="module" src="main.js?v=11"></script>
 </body>
 </html>

@@ -1,8 +1,61 @@
-import { PROJECTS } from './assets/js/projects-data.js?v=2';
+import { PROJECTS as PROJECTS_FR, PROJECTS_EN } from './assets/js/projects-data.js?v=4';
+import { LANG, UI, applyI18n } from './assets/js/i18n.js?v=1';
+
+// Must run before anything reads page text: the GSAP word splits (hero H1,
+// About paragraph) and the project cards are built from the translated DOM.
+applyI18n();
+
+// Project data in the current language — English overrides merged over the
+// French source; gallery captions are swapped by index.
+const PROJECTS = LANG === 'en'
+  ? Object.fromEntries(
+      Object.entries(PROJECTS_FR).map(([id, p]) => {
+        const en = PROJECTS_EN[id] || {};
+        const gallery = p.gallery.map((g, i) => ({ ...g, caption: en.captions?.[i] ?? g.caption }));
+        return [id, { ...p, ...en, gallery }];
+      })
+    )
+  : PROJECTS_FR;
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ==========================================================================
+   Project cards — rendered from projects-data.js into every
+   [data-projects] grid ("all" or a comma-separated list of ids). Runs before
+   the GSAP setup and the category filters below, which both query
+   .project-card at init.
+   ========================================================================== */
+const projectCardHTML = (id, p) => {
+  const name = p.shortTitle || p.title;
+  const media = p.cover
+    ? `<img src="${p.cover}" alt="${name} — ${UI.preview}" loading="lazy">`
+    : `<div class="project-card__placeholder"><span>${name}</span><small>${p.stack.slice(0, 3).join(' · ')}</small></div>`;
+  return `
+    <article class="project-card" data-reveal data-category="${p.type}">
+      <a href="projet.html?id=${id}" class="project-card__link" aria-label="${UI.viewProject} ${name}">
+        <div class="project-card__media">${media}</div>
+        <div class="project-card__info">
+          <span class="project-card__category">${p.category} · ${p.year}</span>
+          <div class="project-card__row">
+            <h3 class="project-card__title">${name}</h3>
+            <span class="project-card__arrow" aria-hidden="true">↗</span>
+          </div>
+          <p class="project-card__context">${p.context} · ${p.team}</p>
+          <ul class="tech-pills tech-pills--sm">${p.stack.slice(0, 4).map((t) => `<li>${t}</li>`).join('')}</ul>
+        </div>
+      </a>
+    </article>`;
+};
+
+document.querySelectorAll('[data-projects]').forEach((grid) => {
+  const ids = grid.dataset.projects === 'all' ? Object.keys(PROJECTS) : grid.dataset.projects.split(',');
+  grid.innerHTML = ids
+    .filter((id) => PROJECTS[id])
+    .map((id) => projectCardHTML(id, PROJECTS[id]))
+    .join('');
+});
 
 /* ==========================================================================
    Lenis smooth scroll + GSAP ScrollTrigger sync
@@ -90,7 +143,7 @@ if (window.gsap && window.ScrollTrigger) {
       );
 
     /* ------------------------------------------------------------------
-       Section title reveal — services, projects, about, contact
+       Section title reveal — projects, about, contact
        ------------------------------------------------------------------ */
     document.querySelectorAll('.section-title, .contact__title').forEach((el) => {
       gsap.from(el, {
@@ -100,18 +153,6 @@ if (window.gsap && window.ScrollTrigger) {
         ease: 'power3.out',
         scrollTrigger: { trigger: el.closest('section'), start: 'top 80%' },
       });
-    });
-
-    /* ------------------------------------------------------------------
-       Pricing cards — stagger reveal
-       ------------------------------------------------------------------ */
-    gsap.from('.services .pricing-card', {
-      y: 60,
-      opacity: 0,
-      duration: 0.7,
-      stagger: 0.15,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: '.services', start: 'top 70%' },
     });
 
     /* ------------------------------------------------------------------
@@ -141,11 +182,11 @@ if (window.gsap && window.ScrollTrigger) {
 
     /* ------------------------------------------------------------------
        Remaining below-fold reveals not covered above
-       (Services intro/problem/process, About stats column, Contact
+       (About stats column, Contact
        WhatsApp button + socials)
        ------------------------------------------------------------------ */
     const handled = new Set([
-      ...document.querySelectorAll('.section-title, .contact__title, .services .pricing-card, .project-card'),
+      ...document.querySelectorAll('.section-title, .contact__title, .project-card'),
     ]);
     [...document.querySelectorAll('[data-reveal]')]
       .filter((el) => !el.closest('.hero') && !handled.has(el))
@@ -215,14 +256,14 @@ if (window.gsap && window.ScrollTrigger) {
    ========================================================================== */
 if (!prefersReducedMotion && window.Typed && document.getElementById('typed-text')) {
   new Typed('#typed-text', {
-    strings: ['Développeuse Web.', 'Développeuse de Systèmes.', 'Experte en Automatisation IA.'],
+    strings: UI.typed,
     typeSpeed: 60,
     backSpeed: 30,
     loop: true,
   });
 } else {
   const typedEl = document.getElementById('typed-text');
-  if (typedEl) typedEl.textContent = 'Développeuse Web.';
+  if (typedEl) typedEl.textContent = UI.typed[0];
 }
 
 /* ==========================================================================
@@ -335,73 +376,88 @@ mobileMenu.querySelectorAll('a').forEach((link) => {
    ========================================================================== */
 const WHATSAPP_NUMBER = '213557246588';
 const whatsappHref = WHATSAPP_NUMBER ? `https://wa.me/${WHATSAPP_NUMBER}` : '#';
-['whatsapp-cta', 'whatsapp-cta-main'].forEach((id) => {
+['whatsapp-cta-main'].forEach((id) => {
   const el = document.getElementById(id);
   if (el) el.href = whatsappHref;
 });
 
 /* ==========================================================================
    Project detail page (projet.html) — populate from ?id= and wire up the
-   gallery carousel. Guarded on #pd-track so this is a no-op on every other
+   gallery carousel. Guarded on #pd-title so this is a no-op on every other
    page that also loads this shared script.
    ========================================================================== */
-const pdTrack = document.getElementById('pd-track');
-if (pdTrack) {
+const pdTitle = document.getElementById('pd-title');
+if (pdTitle) {
   const id = new URLSearchParams(location.search).get('id');
   const data = PROJECTS[id];
 
   if (!data) {
     location.href = 'projets.html';
   } else {
+    const setText = (elId, text) => (document.getElementById(elId).textContent = text);
     document.title = `${data.title} — Roumaissa Bellahouel`;
-    document.getElementById('pd-category').textContent = data.category;
-    document.getElementById('pd-title').textContent = data.title;
-    document.getElementById('pd-value').textContent = data.value;
-    // Projects without a public demo (e.g. the WhatsApp bot) link to their GitHub repo instead
-    const visit = document.getElementById('pd-visit');
-    visit.href = data.url || data.repo;
-    if (!data.url) visit.textContent = 'Voir le code sur GitHub →';
+    setText('pd-category', data.category);
+    pdTitle.textContent = data.title;
+    setText('pd-context', `${data.context} · ${data.year}`);
+    setText('pd-summary', data.summary);
+    setText('pd-role', data.role);
+    setText('pd-meta-context', data.context);
+    setText('pd-meta-year', data.year);
+    setText('pd-meta-team', data.team);
+    document.getElementById('pd-stack').innerHTML = data.stack.map((t) => `<li>${t}</li>`).join('');
+    document.getElementById('pd-features').innerHTML = data.features.map((f) => `<li>${f}</li>`).join('');
 
-    pdTrack.innerHTML = data.gallery
-      .map(
-        (g) =>
-          `<figure class="carousel__slide"><img src="${g.src}" alt="${data.title} — ${g.caption}" loading="lazy"><figcaption>${g.caption}</figcaption></figure>`
-      )
-      .join('');
+    // Live demo and/or source code — private repos simply have no `repo`
+    const links = [];
+    if (data.url) links.push(`<a href="${data.url}" target="_blank" rel="noopener" class="btn btn--primary btn--shimmer magnetic">${UI.liveSite}</a>`);
+    if (data.repo) links.push(`<a href="${data.repo}" target="_blank" rel="noopener" class="btn btn--glass magnetic">${UI.sourceCode}</a>`);
+    document.getElementById('pd-links').innerHTML = links.join('');
 
-    const dotsWrap = document.getElementById('pd-dots');
-    dotsWrap.innerHTML = data.gallery
-      .map((_, i) => `<button type="button" class="carousel__dot${i === 0 ? ' is-active' : ''}" aria-label="Aller à l’image ${i + 1}"></button>`)
-      .join('');
+    const pdTrack = document.getElementById('pd-track');
+    if (!data.gallery.length) {
+      document.getElementById('pd-gallery').hidden = true;
+    } else {
+      pdTrack.innerHTML = data.gallery
+        .map(
+          (g) =>
+            `<figure class="carousel__slide"><img src="${g.src}" alt="${data.title} — ${g.caption}" loading="lazy"><figcaption>${g.caption}</figcaption></figure>`
+        )
+        .join('');
 
-    const slides = [...pdTrack.querySelectorAll('.carousel__slide')];
-    const dots = [...dotsWrap.querySelectorAll('.carousel__dot')];
+      const dotsWrap = document.getElementById('pd-dots');
+      dotsWrap.innerHTML = data.gallery
+        .map((_, i) => `<button type="button" class="carousel__dot${i === 0 ? ' is-active' : ''}" aria-label="${UI.goToImage} ${i + 1}"></button>`)
+        .join('');
 
-    const goTo = (i) => slides[i]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-    dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+      const slides = [...pdTrack.querySelectorAll('.carousel__slide')];
+      const dots = [...dotsWrap.querySelectorAll('.carousel__dot')];
 
-    const activeIndex = () =>
-      slides.reduce((closest, s, i) => {
-        const d = Math.abs(s.getBoundingClientRect().left - pdTrack.getBoundingClientRect().left);
-        return d < closest.d ? { i, d } : closest;
-      }, { i: 0, d: Infinity }).i;
+      const goTo = (i) => slides[i]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
 
-    document.getElementById('pd-prev')?.addEventListener('click', () => goTo(Math.max(0, activeIndex() - 1)));
-    document.getElementById('pd-next')?.addEventListener('click', () => goTo(Math.min(slides.length - 1, activeIndex() + 1)));
+      const activeIndex = () =>
+        slides.reduce((closest, s, i) => {
+          const d = Math.abs(s.getBoundingClientRect().left - pdTrack.getBoundingClientRect().left);
+          return d < closest.d ? { i, d } : closest;
+        }, { i: 0, d: Infinity }).i;
 
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            const i = slides.indexOf(entry.target);
-            dots.forEach((d) => d.classList.remove('is-active'));
-            dots[i]?.classList.add('is-active');
-          });
-        },
-        { root: pdTrack, threshold: 0.6 }
-      );
-      slides.forEach((s) => io.observe(s));
+      document.getElementById('pd-prev')?.addEventListener('click', () => goTo(Math.max(0, activeIndex() - 1)));
+      document.getElementById('pd-next')?.addEventListener('click', () => goTo(Math.min(slides.length - 1, activeIndex() + 1)));
+
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              const i = slides.indexOf(entry.target);
+              dots.forEach((d) => d.classList.remove('is-active'));
+              dots[i]?.classList.add('is-active');
+            });
+          },
+          { root: pdTrack, threshold: 0.6 }
+        );
+        slides.forEach((s) => io.observe(s));
+      }
     }
   }
 }

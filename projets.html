@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tous les projets — Roumaissa Bellahouel</title>
-  <meta name="description" content="Tous les projets réalisés par Roumaissa Bellahouel — boutiques en ligne, menus digitaux et systèmes de gestion sur-mesure.">
+  <title data-i18n="meta.projectsTitle">Tous les projets — Roumaissa Bellahouel</title>
+  <meta name="description" data-i18n-attr="content:meta.projectsDesc" content="Projets de Roumaissa Bellahouel, élève ingénieure à l'ESI-SBA : projets académiques (microservices, MERN) et applications web livrées en freelance, avec stack technique et rôle.">
 
   <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css?v=11">
 
   <!-- GSAP + ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
@@ -33,16 +33,19 @@
     </a>
 
     <nav class="navbar__links" aria-label="Principal">
-      <a href="index.html#hero" class="navbar__link">Accueil</a>
-      <a href="index.html#services" class="navbar__link">Offres</a>
-      <a href="projets.html" class="navbar__link">Projets</a>
-      <a href="index.html#about" class="navbar__link">À propos</a>
-      <a href="index.html#contact" class="navbar__link">Contact</a>
+      <a href="index.html#hero" class="navbar__link" data-i18n="nav.home">Accueil</a>
+      <a href="index.html#about" class="navbar__link" data-i18n="nav.about">À propos</a>
+      <a href="projets.html" class="navbar__link" data-i18n="nav.projects">Projets</a>
+      <a href="index.html#parcours" class="navbar__link" data-i18n="nav.parcours">Parcours</a>
+      <a href="index.html#contact" class="navbar__link" data-i18n="nav.contact">Contact</a>
     </nav>
 
-    <a href="index.html#contact" class="btn btn--pill navbar__cta">Contact</a>
+    <div class="navbar__actions">
+      <button type="button" class="lang-switch" data-lang-switch></button>
+      <a href="assets/cv/CV-Roumaissa-Bellahouel.pdf" download data-cv class="btn btn--pill navbar__cta" data-i18n="nav.cv">Mon CV ↓</a>
+    </div>
 
-    <button class="navbar__burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
+    <button class="navbar__burger" id="burger" data-i18n-attr="aria-label:nav.menu" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
       <span></span><span></span><span></span>
     </button>
   </header>
@@ -50,126 +53,43 @@
   <!-- Mobile menu drawer -->
   <div class="mobile-menu" id="mobile-menu">
     <nav aria-label="Mobile">
-      <a href="index.html#hero" class="mobile-menu__link">Accueil</a>
-      <a href="index.html#services" class="mobile-menu__link">Offres</a>
-      <a href="projets.html" class="mobile-menu__link">Projets</a>
-      <a href="index.html#about" class="mobile-menu__link">À propos</a>
-      <a href="index.html#contact" class="mobile-menu__link">Contact</a>
+      <a href="index.html#hero" class="mobile-menu__link" data-i18n="nav.home">Accueil</a>
+      <a href="index.html#about" class="mobile-menu__link" data-i18n="nav.about">À propos</a>
+      <a href="projets.html" class="mobile-menu__link" data-i18n="nav.projects">Projets</a>
+      <a href="index.html#parcours" class="mobile-menu__link" data-i18n="nav.parcours">Parcours</a>
+      <a href="index.html#contact" class="mobile-menu__link" data-i18n="nav.contact">Contact</a>
+      <a href="assets/cv/CV-Roumaissa-Bellahouel.pdf" download data-cv class="mobile-menu__link" data-i18n="nav.cv">Mon CV ↓</a>
+      <button type="button" class="lang-switch lang-switch--mobile" data-lang-switch></button>
     </nav>
   </div>
 
   <main>
     <section id="projects" class="projects projects--full">
-      <a href="index.html#projects" class="project-detail__back" data-reveal>← Retour à l'accueil</a>
-      <span class="badge projects__eyebrow" data-reveal>✦ PORTFOLIO</span>
-      <h1 class="section-title" data-reveal>Tous mes projets</h1>
+      <a href="index.html#projects" class="project-detail__back" data-reveal data-i18n="projects.back">← Retour à l'accueil</a>
+      <span class="badge projects__eyebrow" data-reveal data-i18n="projects.eyebrow">✦ PROJETS</span>
+      <h1 class="section-title" data-reveal data-i18n="projects.allTitle">Tous mes projets</h1>
+
+      <p class="section-intro" data-reveal data-i18n="projects.allIntro">
+        Projets académiques réalisés en équipe à l'ESI-SBA, et applications conçues et livrées
+        pour de vrais clients en freelance.
+      </p>
 
       <div class="projects__filters" data-reveal>
-        <button type="button" class="filter-pill is-active" data-filter="all">Tous</button>
-        <button type="button" class="filter-pill" data-filter="ecommerce">Boutique en ligne</button>
-        <button type="button" class="filter-pill" data-filter="menu">Menu Digital</button>
-        <button type="button" class="filter-pill" data-filter="gestion">Système de Gestion</button>
-        <button type="button" class="filter-pill" data-filter="ia">Automatisation IA</button>
+        <button type="button" class="filter-pill is-active" data-filter="all" data-i18n="filters.all">Tous</button>
+        <button type="button" class="filter-pill" data-filter="academique" data-i18n="filters.academic">Projets académiques</button>
+        <button type="button" class="filter-pill" data-filter="web" data-i18n="filters.web">Applications web</button>
+        <button type="button" class="filter-pill" data-filter="ia" data-i18n="filters.ai">IA</button>
+        <button type="button" class="filter-pill" data-filter="menu" data-i18n="filters.menu">Menus digitaux</button>
       </div>
 
-      <div class="projects__grid">
-        <article class="project-card" data-reveal data-category="ecommerce">
-          <a href="projet.html?id=laky-store" class="project-card__link" aria-label="Voir le projet Laky Accessoires">
-            <div class="project-card__media">
-              <img src="assets/projects/laky-store/cover.jpg" alt="Laky Accessoires — page d'accueil" loading="lazy">
-            </div>
-            <div class="project-card__info">
-              <span class="project-card__category">Boutique en ligne</span>
-              <div class="project-card__row">
-                <h3 class="project-card__title">Laky Accessoires</h3>
-                <span class="project-card__arrow" aria-hidden="true">↗</span>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <article class="project-card" data-reveal data-category="ecommerce">
-          <a href="projet.html?id=as-accessoires" class="project-card__link" aria-label="Voir le projet As Accessoires Auto">
-            <div class="project-card__media">
-              <img src="assets/projects/as-accessoires/cover.jpg" alt="Le As Accessoires Auto — page d'accueil" loading="lazy">
-            </div>
-            <div class="project-card__info">
-              <span class="project-card__category">Boutique en ligne</span>
-              <div class="project-card__row">
-                <h3 class="project-card__title">As Accessoires Auto</h3>
-                <span class="project-card__arrow" aria-hidden="true">↗</span>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <article class="project-card" data-reveal data-category="menu">
-          <a href="projet.html?id=japan-sushi" class="project-card__link" aria-label="Voir le projet Japan Sushi">
-            <div class="project-card__media">
-              <img src="assets/projects/japan-sushi/cover.jpg" alt="Japan Sushi — menu digital" loading="lazy">
-            </div>
-            <div class="project-card__info">
-              <span class="project-card__category">Menu Digital</span>
-              <div class="project-card__row">
-                <h3 class="project-card__title">Japan Sushi</h3>
-                <span class="project-card__arrow" aria-hidden="true">↗</span>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <article class="project-card" data-reveal data-category="menu">
-          <a href="projet.html?id=bunzos" class="project-card__link" aria-label="Voir le projet Bunzo's">
-            <div class="project-card__media">
-              <img src="assets/projects/bunzos/cover.jpg" alt="Bunzo's — menu digital" loading="lazy">
-            </div>
-            <div class="project-card__info">
-              <span class="project-card__category">Menu Digital</span>
-              <div class="project-card__row">
-                <h3 class="project-card__title">Bunzo's</h3>
-                <span class="project-card__arrow" aria-hidden="true">↗</span>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <article class="project-card" data-reveal data-category="gestion">
-          <a href="projet.html?id=coach-sahi" class="project-card__link" aria-label="Voir le projet Coach Sahi">
-            <div class="project-card__media">
-              <img src="assets/projects/coach-sahi/cover.jpg" alt="Coach Sahi — site vitrine et suivi clients" loading="lazy">
-            </div>
-            <div class="project-card__info">
-              <span class="project-card__category">Système de Gestion</span>
-              <div class="project-card__row">
-                <h3 class="project-card__title">Coach Sahi</h3>
-                <span class="project-card__arrow" aria-hidden="true">↗</span>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <article class="project-card" data-reveal data-category="ia">
-          <a href="projet.html?id=dar-dzayer" class="project-card__link" aria-label="Voir le projet Dar Dzayer, bot WhatsApp">
-            <div class="project-card__media">
-              <img src="assets/projects/dar-dzayer/cover.jpg" alt="Dar Dzayer — conversation de réservation sur WhatsApp" loading="lazy">
-            </div>
-            <div class="project-card__info">
-              <span class="project-card__category">Automatisation IA</span>
-              <div class="project-card__row">
-                <h3 class="project-card__title">Dar Dzayer — Bot WhatsApp</h3>
-                <span class="project-card__arrow" aria-hidden="true">↗</span>
-              </div>
-            </div>
-          </a>
-        </article>
-      </div>
+      <div class="projects__grid" data-projects="all"></div>
     </section>
   </main>
 
   <footer class="footer">
-    <p>&copy; <span id="year"></span> Roumaissa Bellahouel. Conçu avec soin.</p>
+    <p>&copy; <span id="year"></span> Roumaissa Bellahouel · ESI Sidi Bel Abbès</p>
   </footer>
 
-  <script type="module" src="main.js?v=6"></script>
+  <script type="module" src="main.js?v=11"></script>
 </body>
 </html>
