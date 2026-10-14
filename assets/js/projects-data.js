@@ -60,7 +60,6 @@ export const PROJECTS = {
     category: 'E-commerce full-stack',
     title: 'Laky Accessoires',
     cover: 'assets/projects/laky-store/cover.jpg',
-    url: 'https://laky-store.vercel.app/',
     repo: 'https://github.com/roumaissabellahouel/laky-store',
     context: 'Freelance · client réel',
     year: '2026',

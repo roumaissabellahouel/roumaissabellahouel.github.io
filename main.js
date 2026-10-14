@@ -1,4 +1,4 @@
-import { PROJECTS as PROJECTS_FR, PROJECTS_EN } from './assets/js/projects-data.js?v=5';
+import { PROJECTS as PROJECTS_FR, PROJECTS_EN } from './assets/js/projects-data.js?v=6';
 import { LANG, UI, applyI18n } from './assets/js/i18n.js?v=1';
 
 // Must run before anything reads page text: the GSAP word splits (hero H1,
