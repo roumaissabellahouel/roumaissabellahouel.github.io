@@ -143,6 +143,30 @@ export const PROJECTS = {
     ],
     gallery: [],
   },
+  heuresup: {
+    type: 'academique',
+    category: 'Projet académique',
+    title: 'HeureSup — Gestion des heures supplémentaires',
+    shortTitle: 'HeureSup',
+    repo: 'https://github.com/amdjadmoh/heureSup',
+    context: 'Projet académique 1CS · ESI-SBA',
+    year: '2025',
+    team: "Projet d'équipe",
+    summary:
+      "Application qui remplace le calcul à la main des heures supplémentaires des enseignants : " +
+      "emplois du temps et séances, absences et jours fériés, calcul automatique des heures sup " +
+      "semaine par semaine, puis calcul des salaires et génération des documents de paiement.",
+    stack: ['Node.js', 'Express.js', 'PostgreSQL', 'Drizzle ORM', 'JWT', 'bcrypt', 'ExcelJS', 'Luxon'],
+    features: [
+      "API REST Express organisée en routes / contrôleurs (enseignants, emplois du temps, absences, salaires…)",
+      "Schéma relationnel PostgreSQL avec Drizzle ORM et migrations versionnées",
+      "Calcul des heures sup par semaine, pondéré par un coefficient selon le type de séance",
+      "Prise en compte des absences, jours fériés et séances externes dans le calcul",
+      "Génération des fiches de paiement et états d'engagement au format Excel (ExcelJS)",
+      "Authentification JWT, mots de passe hachés (bcrypt)",
+    ],
+    gallery: [],
+  },
   'as-accessoires': {
     type: 'web',
     category: 'E-commerce full-stack',
@@ -366,6 +390,24 @@ export const PROJECTS_EN = {
       'Password reset by email (Nodemailer)',
       'Global state with Redux Toolkit, persisted across sessions (Redux Persist)',
       'Multiple image uploads to Firebase Storage',
+    ],
+  },
+  heuresup: {
+    category: 'Academic project',
+    title: 'HeureSup — Overtime hours management',
+    context: 'Academic project 1CS · ESI-SBA',
+    team: 'Team project',
+    summary:
+      "An application that replaces the manual calculation of teachers' overtime hours: timetables " +
+      'and sessions, absences and public holidays, automatic week-by-week overtime calculation, then ' +
+      'salary calculation and generation of payment documents.',
+    features: [
+      'Express REST API organized into routes / controllers (teachers, timetables, absences, salaries…)',
+      'PostgreSQL relational schema with Drizzle ORM and versioned migrations',
+      'Weekly overtime calculation, weighted by a coefficient per session type',
+      'Absences, public holidays and external sessions taken into account in the calculation',
+      'Payment forms and commitment statements generated as Excel files (ExcelJS)',
+      'JWT authentication, hashed passwords (bcrypt)',
     ],
   },
   'as-accessoires': {

@@ -1,4 +1,4 @@
-import { PROJECTS as PROJECTS_FR, PROJECTS_EN } from './assets/js/projects-data.js?v=4';
+import { PROJECTS as PROJECTS_FR, PROJECTS_EN } from './assets/js/projects-data.js?v=5';
 import { LANG, UI, applyI18n } from './assets/js/i18n.js?v=1';
 
 // Must run before anything reads page text: the GSAP word splits (hero H1,
@@ -400,7 +400,9 @@ if (pdTitle) {
     pdTitle.textContent = data.title;
     setText('pd-context', `${data.context} · ${data.year}`);
     setText('pd-summary', data.summary);
-    setText('pd-role', data.role);
+    // No role written yet (e.g. HeureSup) → hide the "Mon rôle" block instead of showing it empty
+    if (data.role) setText('pd-role', data.role);
+    else document.getElementById('pd-role').closest('.pd-block').remove();
     setText('pd-meta-context', data.context);
     setText('pd-meta-year', data.year);
     setText('pd-meta-team', data.team);
